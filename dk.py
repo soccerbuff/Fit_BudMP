@@ -24,7 +24,10 @@ def BMR(g, a, w, h,bmi):
         tdee = bmr * 1.55
     if (activity == 'Active Exercise'):
         tdee = bmr * 1.725
+    try:
         st.caption("The estimated TDEE or body weight maintenance energy requirement is {} Calories per week".format(int(tdee)))
+    except:
+        pass
 
     if (bmi < 18.5):
 
