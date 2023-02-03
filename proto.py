@@ -107,7 +107,7 @@ def advanced_workout(name,age,gender,wt,ht):
                 st.video(l.plyo_f)
             elif(sport=='Cricket'):
                 st.video(l.plyo_c)
-            elif(sport=='Basketball'):
+            elif(sport=='BasketBall'):
                 st.video(l.plyo_b)
     elif(ath=='No'):
         choice_adv=st.selectbox("What area do you want to work on?",('-','Advanced Strength and Conditioning','Endurance'))
