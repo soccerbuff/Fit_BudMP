@@ -245,4 +245,5 @@ if selection=="Generate Workout":
         pass
 elif selection=="BMI and BMR calculator":
     bmi=dk.BMI(wt,ht)
+    st.success("BMI:{:.2f} ".format(bmi))
     bmr=dk.BMR(gender,age,wt,ht,bmi)
