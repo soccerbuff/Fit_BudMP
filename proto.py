@@ -164,7 +164,7 @@ def intermediate_wk(name,age,gender,wt,ht):
         elif(issue=="Other"):
             st.text_input=("Enter your problem.")
     elif(health=='No'):
-        fit_goal=st.selectbox("What is your fitness goal?",(" ","Weight Loss(Cut)","Weight Gain(Bulk)","Endurance","Yoga"))
+        fit_goal=st.selectbox("What is your fitness goal?",("-","Weight Loss(Cut)","Weight Gain(Bulk)","Endurance","Yoga"))
         #Weight Loss
         if(fit_goal=="Weight Loss(Cut)"):
             part=st.selectbox("What area of the body do you want to work on?",("Upper Body","Lower Body","Core"))
