@@ -3,7 +3,6 @@ import streamlit as st
 import streamlit.components.v1 as comp
 import links as l
 import dk
-import base64
 
 #Generate Workout video for a Beginner
 def beginner_wk(name,age,gender,wt,ht):
@@ -26,21 +25,33 @@ def beginner_wk(name,age,gender,wt,ht):
             if(gender=="Female"):
                 aero=st.radio("Do you want an aerobic workout?",('No','Yes'))
                 if(aero=='Yes'):
-                    st.video(l.aero_w)
-                else:
-                    pass
+                    st.video(l.aero_w)     
             elif(gender!='Female' or aero=='No'):
-                pass              
+                bmi=dk.BMI(wt,ht)
+                if(bmi>=25 and bmi>10):
+                    st.video(l.obese_men)
+                else:
+                    st.video(l.bob_brad)          
         elif(issue=="Orthopedic"):
-            ortho_iss=st.selectbox("Which of the above problems do you have?",("-","Recovering from an fracture","Spine issues","Arthritis(Joint Pains)","Any Other"))
+            ortho_iss=st.selectbox("Which of the above problems do you have?",("-","Recovering from an fracture","Spine issues","Arthritis(KNEES)","Any Other"))
             if(ortho_iss=="Recovering from an fracture"):
-                pass
+                frac=st.selectbox("What kind of fracture?",('-','Collar Bone','5th-Metatarsal','Wrist',))
+                if(frac=='Collar Bone'):
+                    st.video(l.collar_bone)
+                elif(frac=='5th-Metatarsal'):
+                    st.video(l.met)
+                elif(frac=='Wrist'):
+                    st.video(l.wrist)
             elif(ortho_iss=="Spine_issues"):
-                pass
-            elif(ortho_iss=="Arthritis(Joint Pains)"):
-                pass
+                disc=st.selectbox("Do you have a disc bulge?",('-','YES','No'))
+                if(disc=='YES'):
+                    st.video(l.disc_bulge)
+                elif(disc=='No'):
+                    st.video(l.spine)
+            elif(ortho_iss=="Arthritis(KNEES)"):
+                st.video(l.arth)
             elif(ortho_iss=="Any Other"):
-                pass
+                st.write("Enter Problem")
         elif(issue=="Other"):
             st.text_input=("Enter your problem.")
     else:
@@ -49,26 +60,40 @@ def beginner_wk(name,age,gender,wt,ht):
         if(fit_goal=="Weight Loss(Cut)"):
             part=st.selectbox("What area of the body do you want to work on?",("Upper Body","Lower Body","Core"))
             if(part=="Upper Body"):
-                pass
+                st.video(l.beg_upp)
             elif(part=="Lower Body"):
-                pass
+                st.video(l.beg_leg)
             elif(part=="Core"):
-                pass
+                st.video(l.beg_core)
         #Weight Gain
         elif(fit_goal=="Weight Gain(Bulk)"):
             part=st.selectbox("What area of the body do you want to work on?",("Upper Body","Lower Body","Core"))
             if(part=="Upper Body"):
-                pass
+                st.video(l.beg_upp)
             elif(part=="Lower Body"):
-                pass
+                st.video(l.beg_leg)
             elif(part=="Core"):
-                pass
-        #Endurance   
+                st.video(l.beg_core)
+            diet=st.selectbox("Generating the best food for your bulking diet.Select category",('-','Vegetarian','Non-Vegitarian'))
+            if(diet=="Vegetarian"):
+                st.caption("Dark green leafy vegetables such as kale, spinach, mustard greens, bok choy, arugula, Swiss chard")
+                st.caption("Plant-based protein including nuts, seeds, edamame, tofu")
+                st.caption("Starchy vegetables like potatoes, sweet potatoes, or squash")
+                st.caption("Non starchy vegetables like broccoli, asparagus, or peppers.")
+                st.caption("Whole fruit including bananas, berries, pomegranate, and citrus fruits.")
+                st.caption("Whole grains such as quinoa, barley, farro, and brown rice")
+            elif(diet=="Non-Vegetarian"):
+                st.caption("Dairy products including milk, cottage cheese, yogurt, cheese")
+                st.caption("Eggs (whole and egg whites)")
+                st.caption("Lean meat and poultry such as beef (sirloin, filet, ground beef), poultry (chicken or turkey breast or thighs), pork (tenderloin or pork chops)")
+                st.caption("Seafood including salmon, tuna, whitefish, scallops, shrimp, halibut, trout")
+        #Endurance  
         elif(fit_goal=="Endurance"):
-            pass
+            st.video(l.beg_end)
         #yoga
         elif(fit_goal=="Yoga"):
-            pass
+            st.video(l.yog_beg)
+            
         
 #Generate Workout Video For Advanced user        
 def advanced_workout(name,age,gender,wt,ht):
@@ -99,14 +124,27 @@ def advanced_workout(name,age,gender,wt,ht):
                 elif(gender=='Female'):
                     st.video(l.adv_lower_w)
             elif(part=="Core(Abs)"):
-                pass
-            
+                if(gender=="Male"):
+                    st.video(l.adv_core_m)
+                elif(gender=="Female"):
+                    st.video(l.adv_core_w)
+        if(choice_adv=="Endurance"):
+            if(gender=='Male'):
+                st.video(l.end_m)
+            elif(gender=='Female'):
+                dum=st.selectbox("Do you have the availability of dumbells?(5kg)",('-','YES','NO'))
+                if(dum=='YES'):
+                    st.video(l.end_wdum)
+                elif(dum=='NO'):
+                    st.video(l.end_wndum)
+                    
+
 #Generate Workout Video for Intermediate User
 def intermediate_wk(name,age,gender,wt,ht):
     st.caption("We need further inputs to generate your workout for the day.")
-    health=st.selectbox("Do you have any health issues?",("-","Yes","No"))
+    health=st.selectbox("Do you have any health issues?",(" ","Yes","No"))
     if(health=='Yes'):
-        issue=st.selectbox("What health issue do you have?",("-","Cardiovascular","Physical Inactivity","Respiratory","Orthopedic","Other"))
+        issue=st.selectbox("What health issue do you have?",(" ","Cardiovascular","Physical Inactivity","Respiratory","Orthopedic","Other"))
         if(issue=="Cardiovascular"):
             pass
         elif(issue=="Respiratory"):
@@ -114,7 +152,7 @@ def intermediate_wk(name,age,gender,wt,ht):
         elif(issue=="Physical Inactivity"):
             pass
         elif(issue=="Orthopedic"):
-            ortho_iss=st.selectbox("Which of the above problems do you have?",("-","Recovering from an fracture","Spine issues","Arthritis(Joint Pains)","Any Other"))
+            ortho_iss=st.selectbox("Which of the above problems do you have?",(" ","Recovering from an fracture","Spine issues","Arthritis(Joint Pains)","Any Other"))
             if(ortho_iss=="Recovering from an fracture"):
                 pass
             elif(ortho_iss=="Spine_issues"):
@@ -126,37 +164,58 @@ def intermediate_wk(name,age,gender,wt,ht):
         elif(issue=="Other"):
             st.text_input=("Enter your problem.")
     elif(health=='No'):
-        fit_goal=st.selectbox("What is your fitness goal?",("-","Weight Loss(Cut)","Weight Gain(Bulk)","Endurance","Yoga"))
+        fit_goal=st.selectbox("What is your fitness goal?",(" ","Weight Loss(Cut)","Weight Gain(Bulk)","Endurance","Yoga"))
         #Weight Loss
         if(fit_goal=="Weight Loss(Cut)"):
             part=st.selectbox("What area of the body do you want to work on?",("Upper Body","Lower Body","Core"))
             if(part=="Upper Body"):
-                pass
+                st.video(l.int_upp)
             elif(part=="Lower Body"):
-                pass
+                st.video(l.int_low)
             elif(part=="Core"):
-                pass
+                st.video(l.int_core)
         #Weight Gain
         elif(fit_goal=="Weight Gain(Bulk)"):
             part=st.selectbox("What area of the body do you want to work on?",("Upper Body","Lower Body","Core"))
             if(part=="Upper Body"):
-                pass
+                st.subheader("Make sure you do this workout with dumbells of comfortable weight")
+                st.video(l.int_uppb)
             elif(part=="Lower Body"):
-                pass
+                st.subheader("Make sure you do this workout with dumbells of comfortable weight")
+                st.video(l.int_lowb)
             elif(part=="Core"):
-                pass
+                st.video(l.int_coreb)
+            diet=st.selectbox("Generating the best food for your bulking diet.Select category",('-','Vegetarian','Non-Vegitarian'))
+            if(diet=="Vegetarian"):
+                st.caption("Dark green leafy vegetables such as kale, spinach, mustard greens, bok choy, arugula, Swiss chard")
+                st.caption("Plant-based protein including nuts, seeds, edamame, tofu")
+                st.caption("Starchy vegetables like potatoes, sweet potatoes, or squash")
+                st.caption("Non starchy vegetables like broccoli, asparagus, or peppers.")
+                st.caption("Whole fruit including bananas, berries, pomegranate, and citrus fruits.")
+                st.caption("Whole grains such as quinoa, barley, farro, and brown rice")
+            elif(diet=="Non-Vegetarian"):
+                st.caption("Dairy products including milk, cottage cheese, yogurt, cheese")
+                st.caption("Eggs (whole and egg whites)")
+                st.caption("Lean meat and poultry such as beef (sirloin, filet, ground beef), poultry (chicken or turkey breast or thighs), pork (tenderloin or pork chops)")
+                st.caption("Seafood including salmon, tuna, whitefish, scallops, shrimp, halibut, trout")
         #Endurance   
         elif(fit_goal=="Endurance"):
-            pass
+            st.video(l.int_end)
         #yoga
         elif(fit_goal=="Yoga"):
-            pass   
+            yoga_for=st.selectbox("Yoga for?",('-','Strength','Mobility','Power Yoga'))
+            if(yoga_for=='Strength'):
+                st.video(l.str_yog)
+            elif(yoga_for=='Mobility'):
+                st.video(l.flex_yoga)
+            elif(yoga_for=='Power yoga'):
+                st.video(l.pow_yoga)
                 
 st.title("FIT-BUDDY")
 menu_options = ("Home Page","Generate Workout", "BMI and BMR calculator")
 selection = st.sidebar.selectbox("Menu", menu_options)
 name = st.text_input("Enter Your name")
-age=st.number_input("Enter Age:",step=1.0)
+age=st.number_input("Enter Age:",min_value=16,step=1)
 gender=st.radio("Gender",("Male","Female"))
 ht=st.slider('Enter your height (in m)', 0.1, 2.5, 0.01)
 wt=st.slider("Enter your weight in kgs:",10,130,55)
