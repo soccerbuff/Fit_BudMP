@@ -3,6 +3,7 @@ import streamlit as st
 import streamlit.components.v1 as comp
 import links as l
 import dk
+import json
 
 #Generate Workout video for a Beginner
 def beginner_wk(name,age,gender,wt,ht):
@@ -53,7 +54,8 @@ def beginner_wk(name,age,gender,wt,ht):
             elif(ortho_iss=="Any Other"):
                 st.write("Enter Problem")
         elif(issue=="Other"):
-            st.text_input=("Enter your problem.")
+            probs=st.text_input=("Enter your problem.")
+            
     else:
         fit_goal=st.selectbox("What is your fitness goal?",("-","Weight Loss(Cut)","Weight Gain(Bulk)","Endurance","Yoga"))
         #Weight Loss
@@ -162,7 +164,7 @@ def intermediate_wk(name,age,gender,wt,ht):
             elif(ortho_iss=="Any Other"):
                 pass
         elif(issue=="Other"):
-            st.text_input=("Enter your problem.")
+            prob=st.text_input=("Enter your problem.")
     elif(health=='No'):
         fit_goal=st.selectbox("What is your fitness goal?",("-","Weight Loss(Cut)","Weight Gain(Bulk)","Endurance","Yoga"))
         #Weight Loss
@@ -185,7 +187,7 @@ def intermediate_wk(name,age,gender,wt,ht):
                 st.video(l.int_lowb)
             elif(part=="Core"):
                 st.video(l.int_coreb)
-            diet=st.selectbox("Generating the best food for your bulking diet.Select category",('-','Vegetarian','Non-Vegitarian'))
+            diet=st.selectbox("Generating the best food for your bulking diet.Select category",('-','Vegetarian','Non-Vegetarian'))
             if(diet=="Vegetarian"):
                 st.caption("Dark green leafy vegetables such as kale, spinach, mustard greens, bok choy, arugula, Swiss chard")
                 st.caption("Plant-based protein including nuts, seeds, edamame, tofu")
@@ -217,23 +219,119 @@ selection = st.sidebar.selectbox("Menu", menu_options)
 name = st.text_input("Enter Your name")
 age=st.number_input("Enter Age:",min_value=16,step=1)
 gender=st.radio("Gender",("Male","Female"))
-ht=st.slider('Enter your height (in m)', 0.1, 2.5, 0.01)
-wt=st.slider("Enter your weight in kgs:",10,130,55)
+ht=st.slider('Enter your height (in m)', 0.1, 2.5,1.0)
+wt=st.slider("Enter your weight in kgs:",10.0,130.0,55.0)
 if selection=="Generate Workout":
     st.header("Evaluate your fitness level with this basic Squat test.")
     st.subheader("We'll be evaluating your fitness level based on the number of squats you'll be performing in a mintute.")
     st.video("https://www.youtube.com/watch?v=FbqkcH56eRM")
-    squat=st.selectbox("How many Squats did you perform?",("-","<20","20-40",">40"))
+    squat=st.slider("How many squats did you perform?",0.0,60.0,0.0,1.0)
     fit_level='-'
-    if(squat=='<20'):
-        fit_level= 'Beginner'
-        st.success("You fall under beginner level.Let's Improve!")
-    elif(squat=='20-40'):
-        fit_level='Intermediate'
-        st.success("You fall under Intermediate level.Keep up the good work!")
-    elif(squat=='>40'):
-        fit_level='Advanced'
-        st.success("Your fitness levels are advanced! Let's push the limits!")
+    if(gender=='Male'):
+        if(age>=16 and age <=29):
+            if(squat>1 and squat<=23):
+                fit_level= 'Beginner'
+                st.success("You fall under beginner level.Let's Improve!")
+            elif(squat>23 and squat <= 32):
+                fit_level='Intermediate'
+                st.success("You fall under Intermediate level.Keep up the good work!")
+            elif(squat>32):
+                fit_level='Advanced'
+                st.success("Your fitness levels are advanced! Let's push the limits!")
+        elif(age>=30 and age <= 39):
+            if(squat>1 and squat<=20):
+                fit_level= 'Beginner'
+                st.success("You fall under beginner level.Let's Improve!")
+            elif(squat>20 and squat <=29):
+                fit_level='Intermediate'
+                st.success("You fall under Intermediate level.Keep up the good work!")
+            elif(squat>=29):
+                fit_level='Advanced'
+                st.success("Your fitness levels are advanced! Let's push the limits!")
+        elif(age>=40 and age <= 49):
+            if(squat>1 and squat<=15):
+                fit_level= 'Beginner'
+                st.success("You fall under beginner level.Let's Improve!")
+            elif(squat>15 and squat <= 26):
+                fit_level='Intermediate'
+                st.success("You fall under Intermediate level.Keep up the good work!")
+            elif(squat>26):
+                fit_level='Advanced'
+                st.success("Your fitness levels are advanced! Let's push the limits!")
+        elif(age>=50 and age <=59):
+            if(squat>1 and squat<=14):
+                fit_level= 'Beginner'
+                st.success("You fall under beginner level.Let's Improve!")
+            elif(squat>14 and squat <=23):
+                fit_level='Intermediate'
+                st.success("You fall under Intermediate level.Keep up the good work!")
+            elif(squat>23):
+                fit_level='Advanced'
+                st.success("Your fitness levels are advanced! Let's push the limits!")
+        elif(age>60):
+            if(squat>1 and squat<=9):
+                fit_level= 'Beginner'
+                st.success("You fall under beginner level.Let's Improve!")
+            elif(squat>9 and squat <=20):
+                fit_level='Intermediate'
+                st.success("You fall under Intermediate level.Keep up the good work!")
+            elif(squat>20):
+                fit_level='Advanced'
+                st.success("Your fitness levels are advanced! Let's push the limits!")
+    #Female
+    if(gender=='Female'):
+        if(age>=16 and age <=29):
+            if(squat>1 and squat<=20):
+                fit_level= 'Beginner'
+                st.success("You fall under beginner level.Let's Improve!")
+            elif(squat>20 and squat <= 27):
+                fit_level='Intermediate'
+                st.success("You fall under Intermediate level.Keep up the good work!")
+            elif(squat>27):
+                fit_level='Advanced'
+                st.success("Your fitness levels are advanced! Let's push the limits!")
+        elif(age>=30 and age <= 39):
+            if(squat<=17):
+                fit_level= 'Beginner'
+                st.success("You fall under beginner level.Let's Improve!")
+            elif(squat>17 and squat <=25):
+                fit_level='Intermediate'
+                st.success("You fall under Intermediate level.Keep up the good work!")
+            elif(squat>25):
+                fit_level='Advanced'
+                st.success("Your fitness levels are advanced! Let's push the limits!")
+        elif(age>=40 and age <= 49):
+            if(squat<=11):
+                fit_level= 'Beginner'
+                st.success("You fall under beginner level.Let's Improve!")
+            elif(squat>11 and squat <= 22):
+                fit_level='Intermediate'
+                st.success("You fall under Intermediate level.Keep up the good work!")
+            elif(squat>=23):
+                fit_level='Advanced'
+                st.success("Your fitness levels are advanced! Let's push the limits!")
+        elif(age>=50 and age <=59):
+            if(squat>1 and squat<=8):
+                fit_level= 'Beginner'
+                st.success("You fall under beginner level.Let's Improve!")
+            elif(squat>8 and squat <=17):
+                fit_level='Intermediate'
+                st.success("You fall under Intermediate level.Keep up the good work!")
+            elif(squat>17):
+                fit_level='Advanced'
+                st.success("Your fitness levels are advanced! Let's push the limits!")
+        elif(age>60):
+            if(squat>1 and squat<=5):
+                fit_level= 'Beginner'
+                st.success("You fall under beginner level.Let's Improve!")
+            elif(squat>5 and squat <=14):
+                fit_level='Intermediate'
+                st.success("You fall under Intermediate level.Keep up the good work!")
+            elif(squat>14):
+                fit_level='Advanced'
+                st.success("Your fitness levels are advanced! Let's push the limits!")
+        
+            
     #Based on fitness levels direct inputs
     if(fit_level=='Beginner'):
         beginner_wk(name,age,gender,wt,ht)
