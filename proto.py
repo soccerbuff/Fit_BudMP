@@ -1,6 +1,5 @@
 import random
 import streamlit as st
-import streamlit.components.v1 as comp
 import links as l
 import dk
 import json
