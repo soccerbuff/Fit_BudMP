@@ -210,7 +210,7 @@ def intermediate_wk(name,age,gender,wt,ht):
                 st.video(l.str_yog)
             elif(yoga_for=='Mobility'):
                 st.video(l.flex_yoga)
-            elif(yoga_for=='Power yoga'):
+            elif(yoga_for=='Power Yoga'):
                 st.video(l.pow_yoga)
                 
 st.title("FIT-BUDDY")
